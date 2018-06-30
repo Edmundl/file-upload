@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>上传</title>
+</head>
+<body>
+    <input type="file" id="f1" />
+    <input type="file" id="f2" />
+    <div id="container"></div>
+    <script>
+        const nodeone = document.querySelector('#f1')
+        const nodetwo = document.querySelector('#f2')
+        const wrap = document.querySelector('#container')
+
+        nodeone.addEventListener('change', event => {
+            let files = event.target.files
+            if(files && files.length !== 0) {
+                let file = files[0]
+                let r = new FileReader()
+                r.readAsDataURL(file)
+                let img = document.createElement('img')
+                r.onload = function() {
+                    img.src = r.result
+                    wrap.appendChild(img)
+                }
+            }
+        })
+
+        nodetwo.addEventListener('change', event => {
+            let files = event.target.files
+            if(files && files.length !== 0) {
+                let file = files[0]
+                let r = new FileReader()
+                r.readAsText(file)
+                let style = document.createElement('style')
+                r.onload = function() {
+                    style.innerText = r.result
+                    document.head.appendChild(style)
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>
